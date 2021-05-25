@@ -131,8 +131,7 @@ class CloudStorageApplicationTests {
 		boolean noteDeleted = false;
 		WebElement notesTable = driver.findElement(By.id("userTable"));
 		List<WebElement> noteLink = notesTable.findElements(By.tagName("a"));
-		for (int i = 0; i < noteLink.size(); i++){
-			WebElement deleteNoteButton = noteLink.get(i);
+		for (WebElement deleteNoteButton : noteLink) {
 			deleteNoteButton.click();
 			noteDeleted = true;
 			break;
@@ -185,18 +184,33 @@ class CloudStorageApplicationTests {
 
 			Thread.sleep(2000);
 
-			driver.findElement(By.id("credential-url")).sendKeys("http://localhost:8088/log");
-			driver.findElement(By.id("credential-username")).sendKeys("ironma");
-			driver.findElement(By.id("credential-password")).sendKeys("jarvi");
+			driver.findElement(By.id("credential-url")).sendKeys("http://localhost:5050/home");
+			driver.findElement(By.id("credential-username")).sendKeys("cap");
+			driver.findElement(By.id("credential-password")).sendKeys("shield");
 			driver.findElement(By.id("credential-submit")).click();
 
 			Thread.sleep(4000);
 
 			credentialCreated = true;
 
-		} catch(Exception e) {
-			System.out.println(e);
-		}
+		} catch(Exception e) { System.out.println(e.toString()); }
+
+		try {
+			driver.findElement(By.id("new-credential")).click();
+
+			Thread.sleep(2000);
+
+			driver.findElement(By.id("credential-url")).sendKeys("http://localhost:8088/");
+			driver.findElement(By.id("credential-username")).sendKeys("iron");
+			driver.findElement(By.id("credential-password")).sendKeys("jar");
+			driver.findElement(By.id("credential-submit")).click();
+
+			Thread.sleep(4000);
+
+			credentialCreated = true;
+
+		} catch(Exception e) { System.out.println(e.toString()); }
+
 
 		// Delete a credential
 		Thread.sleep(4000);
@@ -215,14 +229,14 @@ class CloudStorageApplicationTests {
 		List<WebElement> noteList = notesTable.findElements(By.tagName("td"));
 		boolean credentialEdited = false;
 		for (WebElement row : noteList) {
-			WebElement editButton;
+			WebElement editButton = null;
 			editButton = row.findElement(By.tagName("button"));
 			editButton.click();
 			if (!ObjectUtils.isEmpty(editButton)) {
 				Thread.sleep(2000);
-				driver.findElement(By.id("credential-url")).sendKeys("in");
-				driver.findElement(By.id("credential-username")).sendKeys("n");
-				driver.findElement(By.id("credential-password")).sendKeys("s");
+				driver.findElement(By.id("credential-url")).sendKeys("login");
+				driver.findElement(By.id("credential-username")).sendKeys("man");
+				driver.findElement(By.id("credential-password")).sendKeys("vis");
 				driver.findElement(By.id("credential-submit")).click();
 				Thread.sleep(2000);
 				credentialEdited = true;
